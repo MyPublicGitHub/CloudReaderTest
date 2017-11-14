@@ -20,12 +20,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends BaseFragment<FragmentMainBinding> {
-    ArrayList<Fragment> fragments;
-    ArrayList<String> tabs;
 
-    public MainFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -34,13 +29,13 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
     }
 
     @Override
-    public int setContent() {
+    public int setContentView() {
         return R.layout.fragment_main;
     }
 
     private void initFragments() {
-        fragments = new ArrayList<>();
-        tabs = new ArrayList<>();
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        ArrayList<String> tabs = new ArrayList<>();
         fragments.add(new EverydayFragment());
         fragments.add(new WelfareFragment());
         fragments.add(new CustomFragment());
@@ -52,7 +47,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
         MainFragmentPagerAdapter adapter = new MainFragmentPagerAdapter(getChildFragmentManager(), fragments, tabs);
         bindingView.viewPager.setAdapter(adapter);
         bindingView.tabLayout.setupWithViewPager(bindingView.viewPager);
-
+        showLoadData();
     }
 
 }
