@@ -1,14 +1,53 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-<FrameLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.cloudreadertest.ui.main.child.EverydayFragment">
 
-    <TextView
+    <data>
+
+        <variable
+            name="bean"
+            type="com.example.cloudreadertest.bean.GankIODataBean" />
+    </data>
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context="com.example.cloudreadertest.ui.main.child.EverydayFragment">
 
-</FrameLayout>
+        <com.example.xrecyclerview.XRecyclerView
+            android:id="@+id/xrv_everyday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/loading_everyday" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="正在为您开启每日推荐..."
+                android:textColor="#666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="看的越多推荐越准"
+                android:textColor="#999"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>

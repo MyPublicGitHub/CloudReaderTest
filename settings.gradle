@@ -1,1 +1,4 @@
 include ':app'
+include ':library:http'
+include ':library:xrecyclerview'
+include ':library:zoomlibrary'

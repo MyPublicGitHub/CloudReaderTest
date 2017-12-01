@@ -3,7 +3,6 @@ package com.example.cloudreadertest.base;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.databinding.adapters.LinearLayoutBindingAdapter;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -176,7 +175,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
     /**
      * 加载成功，显示内容布局
      */
-    protected void showLoadData() {
+    protected void showLoadSuccess() {
         //隐藏加载中布局
         if (llLoading.getVisibility() == View.VISIBLE)
             llLoading.setVisibility(View.GONE);

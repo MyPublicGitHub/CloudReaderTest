@@ -47,7 +47,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
         MainFragmentPagerAdapter adapter = new MainFragmentPagerAdapter(getChildFragmentManager(), fragments, tabs);
         bindingView.viewPager.setAdapter(adapter);
         bindingView.tabLayout.setupWithViewPager(bindingView.viewPager);
-        showLoadData();
+        showLoadSuccess();
     }
 
 }

@@ -15,11 +15,12 @@ import com.example.cloudreadertest.databinding.LayoutHeaderNavigationViewBinding
 import com.example.cloudreadertest.ui.friends.FriendsFragment;
 import com.example.cloudreadertest.ui.main.MainFragment;
 import com.example.cloudreadertest.ui.music.MusicFragment;
-import com.example.cloudreadertest.utils.ImageloadUtils;
+import com.example.cloudreadertest.utils.ImageLoadUtils;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
+
     private ActivityMainBinding mBinding;
     private ArrayList<Fragment> fragments;
 
@@ -34,9 +35,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private void initView(){
         View headerView = mBinding.navigationView.getHeaderView(0);
         LayoutHeaderNavigationViewBinding bind = DataBindingUtil.bind(headerView);
-        ImageloadUtils.displayCircle(bind.ivHeadPortrait,R.mipmap.ic_launcher);
+        ImageLoadUtils.displayCircle(bind.ivHeadPortrait,R.mipmap.ic_launcher);
 
     }
+
     private void initFragments() {
         fragments = new ArrayList<>();
         fragments.add(new MainFragment());
@@ -115,7 +117,4 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void tabControl() {
-
-    }
 }
