@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.example.cloudreadertest.app.CloudReaderTestApplication;
 import com.example.cloudreadertest.app.Constants;
-import com.example.jingbin.cloudreader.app.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
