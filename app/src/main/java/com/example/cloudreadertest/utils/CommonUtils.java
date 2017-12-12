@@ -47,7 +47,7 @@ public class CommonUtils {
         return displayMetrics.widthPixels;
     }
 
-    public static Drawable getDrawable(int resId){
+    public static Drawable setDrawable(int resId){
         return getResources().getDrawable(resId);
     }
 

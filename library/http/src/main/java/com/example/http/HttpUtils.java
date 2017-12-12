@@ -111,6 +111,7 @@ public class HttpUtils {
         }
         return (T) dongtingHttps;
     }
+
     private Retrofit.Builder getBuilder(String apiUrl) {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(getOkClient());

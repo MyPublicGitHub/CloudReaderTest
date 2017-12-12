@@ -28,7 +28,7 @@ public class TransitionActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_transition);
 
         int i = new Random().nextInt(ConstantsImageUrl.TRANSITION_URLS.length);
-        mBinding.ivDefaultPic.setImageDrawable(CommonUtils.getDrawable(R.mipmap.img_transition_default));
+        mBinding.ivDefaultPic.setImageDrawable(CommonUtils.setDrawable(R.mipmap.img_transition_default));
 
         Glide.with(this)
                 .load(ConstantsImageUrl.TRANSITION_URLS[i])

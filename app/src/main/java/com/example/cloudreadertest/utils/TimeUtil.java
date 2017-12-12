@@ -315,6 +315,21 @@ public class TimeUtil {
         return list;
     }
 
+    /**
+     * 得到昨天的日期
+     */
+    public static String getLastDay(String year, String month, String day) {
+        Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
+        ca.set(Integer.valueOf(year), Integer.valueOf(month) - 1, Integer.valueOf(day));//月份是从0开始的，所以11表示12月
+
+        //使用roll方法进行向前回滚
+        //cl.roll(Calendar.DATE, -1);
+        //使用set方法直接进行设置
+        int inDay = ca.get(Calendar.DATE);
+        ca.set(Calendar.DATE, inDay - 1);
+
+        return String.valueOf(ca.get(Calendar.DATE));
+    }
 
     public static Date getDate() {
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -415,23 +430,25 @@ public class TimeUtil {
     /**
      * @return 获取当前年
      */
-    public static String getYearFromData(){
+    public static String getYearFromData() {
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy");
         String year = sDateFormat.format(new Date());
         return year;
     }
+
     /**
      * @return 获取当前月
      */
-    public static String getMonthFromData(){
+    public static String getMonthFromData() {
         SimpleDateFormat sDateFormat = new SimpleDateFormat("MM");
         String month = sDateFormat.format(new Date());
         return month;
     }
+
     /**
      * @return 获取当前日
      */
-    public static String getDayFromData(){
+    public static String getDayFromData() {
         SimpleDateFormat sDateFormat = new SimpleDateFormat("dd");
         String day = sDateFormat.format(new Date());
         return day;

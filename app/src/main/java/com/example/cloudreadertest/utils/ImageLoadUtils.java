@@ -24,7 +24,7 @@ import java.io.IOException;
 public class ImageLoadUtils {
 
     //圆角
-    public static void displayCircle(ImageView imageView,String url){
+    public static void displayCircle(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)
                 .crossFade(500)
@@ -32,7 +32,8 @@ public class ImageLoadUtils {
                 .transform(new GlideCircleTransformUtils(imageView.getContext()))
                 .into(imageView);
     }
-    public static void displayCircle(ImageView imageView,Integer resId){
+
+    public static void displayCircle(ImageView imageView, Integer resId) {
         Glide.with(imageView.getContext())
                 .load(resId)
                 .crossFade(500)
@@ -42,23 +43,23 @@ public class ImageLoadUtils {
     }
 
     /**
-     *
      * @param imageView
      * @param url
      * @param defaultPicType 电影：0；妹子：1； 书籍：2
      */
-    @BindingAdapter({"android:displayFadeImage","android:defaultPicType"})
-    public static void displayFadeImage(ImageView imageView,String url,int defaultPicType){
+    @BindingAdapter({"android:displayFadeImage", "android:defaultPicType"})
+    public static void displayFadeImage(ImageView imageView, String url, int defaultPicType) {
         displayEspImage(imageView, url, defaultPicType);
     }
 
     /**
      * 区别显示默认图片
+     *
      * @param imageView
      * @param url
      * @param defaultPicType 由这个参数辨别默认图片显示什么
      */
-    public static void displayEspImage(ImageView imageView,String url,int defaultPicType){
+    public static void displayEspImage(ImageView imageView, String url, int defaultPicType) {
         Glide.with(imageView.getContext())
                 .load(url)
                 .error(getDefaultPic(defaultPicType))
@@ -66,8 +67,8 @@ public class ImageLoadUtils {
                 .into(imageView);
     }
 
-    public static int getDefaultPic(int defaultPicType){
-        switch (defaultPicType){
+    public static int getDefaultPic(int defaultPicType) {
+        switch (defaultPicType) {
             case 0://电影
                 return R.mipmap.img_default_movie;
             case 1://妹子
@@ -87,7 +88,7 @@ public class ImageLoadUtils {
     public static void saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
         if (bmp == null) {
-            ToastUtil.showToast( "保存出错了");
+            ToastUtil.showToast("保存出错了");
             return;
         }
         File appDir = new File(Environment.getExternalStorageDirectory(), "CouldReaderTest");
@@ -102,13 +103,13 @@ public class ImageLoadUtils {
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            ToastUtil.showToast( "FileNotFoundException");
+            ToastUtil.showToast("FileNotFoundException");
             e.printStackTrace();
         } catch (IOException e) {
-            ToastUtil.showToast( "IOException");
+            ToastUtil.showToast("IOException");
             e.printStackTrace();
         } catch (Exception e) {
-            ToastUtil.showToast( "Exception");
+            ToastUtil.showToast("Exception");
             e.printStackTrace();
         }
 
@@ -124,12 +125,35 @@ public class ImageLoadUtils {
         Uri uri = Uri.fromFile(file);
         intent.setData(uri);
         context.sendBroadcast(intent);
-        ToastUtil.showToast( "保存成功");
+        ToastUtil.showToast("保存成功");
         DebugUtil.debug("已保存至" + Environment.getExternalStorageDirectory().getAbsolutePath() + "/云阅相册 ");
         // 最后通知图库更新
         //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
         //更新系统图库的方法
         //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"+ Environment.getExternalStorageDirectory())));
+    }
+
+    public static void displayRandom(int imageNumber, String imageUrl, ImageView imageView) {
+        Glide.with(imageView.getContext())
+                .load(imageUrl)
+                .error(getMusicDefaultPic(imageNumber))
+                .error(getMusicDefaultPic(imageNumber))
+                .crossFade(1500)
+                .into(imageView);
+
+    }
+
+    public static int getMusicDefaultPic(int imageNumber) {
+        switch (imageNumber) {
+            case 1:
+                return R.mipmap.img_two_bi_one;
+            case 2:
+                return R.mipmap.img_four_bi_three;
+            case 3:
+                return R.mipmap.img_one_bi_one;
+            default:
+                return R.mipmap.img_four_bi_three;
+        }
     }
 
 }

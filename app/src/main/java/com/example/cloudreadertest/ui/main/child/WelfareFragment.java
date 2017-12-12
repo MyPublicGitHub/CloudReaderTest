@@ -68,20 +68,22 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding> {
         if (!mIsVisible || !isPrepared || !isFirst) {
             return;
         }
-        if (meiziBean!=null&&meiziBean.results!=null&&meiziBean.results.size()>0) {
+        if (meiziBean != null && meiziBean.results != null && meiziBean.results.size() > 0) {
             imageList.clear();
-            for (int i =0;i<meiziBean.results.size();i++){
+            for (int i = 0; i < meiziBean.results.size(); i++) {
                 imageList.add(meiziBean.results.get(i).url);
             }
-            meiziBean = (GankIODataBean)cache.getAsObject(Constants.GANK_MEIZI);
+            meiziBean = (GankIODataBean) cache.getAsObject(Constants.GANK_MEIZI);
             setAdapter(meiziBean);
             showLoadSuccess();
         } else {
             loadWelfareData();
         }
     }
+
     GankIODataBean meiziBean;
     private Cache cache;
+
     private void loadWelfareData() {
         GankOtherModel mModel = new GankOtherModel("福利", HttpUtils.per_page_more, mPage);
         mModel.getGankIOData(new RequestImplements() {
@@ -90,25 +92,25 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding> {
                 DebugUtil.debug(TAG, "loadSuccess");
                 GankIODataBean bean = (GankIODataBean) object;
                 if (mPage == 1) {
-                    if (bean.results!=null&&bean.results.size()>0&&bean!=null){
+                    if (bean.results != null && bean.results.size() > 0 && bean != null) {
                         imageList.clear();
                         //将联网获取的图片集合保存到imagelist 用于传递到大图片页面
-                        for (int i =0;i<bean.results.size();i++){
+                        for (int i = 0; i < bean.results.size(); i++) {
                             imageList.add(bean.results.get(i).url);
                         }
                         setAdapter(bean);
                         cache.remove(Constants.GANK_MEIZI);
-                        cache.put(Constants.GANK_MEIZI,bean,30000);
+                        cache.put(Constants.GANK_MEIZI, bean, 30000);
                     }
                 } else {
-                    if (bean.results!=null&&bean.results.size()>0&&bean!=null){
+                    if (bean.results != null && bean.results.size() > 0 && bean != null) {
                         bindingView.xrvWelfare.refreshComplete();
                         welfareAdapter.addAll(bean.results);
                         welfareAdapter.notifyDataSetChanged();
-                        for (int i =0;i<bean.results.size();i++){
+                        for (int i = 0; i < bean.results.size(); i++) {
                             imageList.add(bean.results.get(i).url);
                         }
-                    }else {
+                    } else {
                         bindingView.xrvWelfare.noMoreLoading();
                     }
                 }
@@ -139,7 +141,9 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding> {
     protected void onRefresh() {
         loadWelfareData();
     }
+
     ArrayList<String> imageList = new ArrayList<>();
+
     private void setAdapter(GankIODataBean bean) {
         if (welfareAdapter == null) {
             welfareAdapter = new WelfareAdapter();
@@ -154,9 +158,9 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding> {
             @Override
             public void onItemClick(GankIODataBean.ResultsBean resultsBean, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("selet",2);//1,头像不显示页码，2大图显示页码
-                bundle.putInt("position",position);//第几张
-                bundle.putStringArrayList("imageuri",imageList);
+                bundle.putInt("selet", 2);//1,头像不显示页码，2大图显示页码
+                bundle.putInt("position", position);//第几张
+                bundle.putStringArrayList("imageuri", imageList);
                 Intent intent = new Intent(getContext(), ViewBigImageActivity.class);
                 intent.putExtras(bundle);
                 getContext().startActivity(intent);

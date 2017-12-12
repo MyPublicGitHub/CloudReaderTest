@@ -27,7 +27,10 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
     protected SV bindingView;
     protected RelativeLayout mContainer;
     private CompositeSubscription mCompositeSubscription;
-
+    private LinearLayout llLoading;
+    private ImageView ivLoading;
+    protected AnimationDrawable mAnimationDrawable;
+    private LinearLayout llLoadError;
     public BaseFragment() {
         // Required empty public constructor
     }
@@ -44,11 +47,6 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
         mContainer.addView(bindingView.getRoot());
         return inflate;
     }
-
-    private LinearLayout llLoading;
-    private ImageView ivLoading;
-    protected AnimationDrawable mAnimationDrawable;
-    private LinearLayout llLoadError;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -80,7 +78,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (getUserVisibleHint()){
             mIsVisible = true;
             onVisible();
         }else {

@@ -11,4 +11,6 @@
     <color name="colorContent">#ff333333</color>
     <!--首页分割线-->
     <color name="colorHomeLine">#D4D4D4</color>
+    <color name="colorPageBG">#f2f4f5</color>
+    <color name="colorRed">#ffce3d3a</color>
 </resources>

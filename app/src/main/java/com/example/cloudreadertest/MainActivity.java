@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         fragments.add(new FriendsFragment());
         MainActivityPagerAdapter adapter = new MainActivityPagerAdapter(getSupportFragmentManager(), fragments);
         mBinding.include.viewPager.setAdapter(adapter);
-        mBinding.include.viewPager.setOnPageChangeListener(mOnPageChangeListener);
+        mBinding.include.viewPager.setOffscreenPageLimit(2);
+        mBinding.include.viewPager.addOnPageChangeListener(mOnPageChangeListener);
         mBinding.include.ivMain.setSelected(true);
     }
 

@@ -1,6 +1,8 @@
 package com.example.cloudreadertest.http.rx;
 
+import com.example.cloudreadertest.bean.FrontpageBean;
 import com.example.cloudreadertest.bean.GankIODataBean;
+import com.example.cloudreadertest.bean.GankIODayBean;
 import com.example.http.HttpUtils;
 
 import retrofit2.http.GET;
@@ -27,11 +29,11 @@ public interface HttpClient {
         }
     }
 
-//    /**
-//     * 首页轮播图
-//     */
-//    @GET("ting?from=android&version=5.8.1.0&channel=ppzs&operator=3&method=baidu.ting.plaza.index&cuid=89CF1E1A06826F9AB95A34DC0F6AAA14")
-//    Observable<FrontpageBean> getFrontpage();
+    /**
+     * 首页轮播图
+     */
+    @GET("ting?from=android&version=5.8.1.0&channel=ppzs&operator=3&method=baidu.ting.plaza.index&cuid=89CF1E1A06826F9AB95A34DC0F6AAA14")
+    Observable<FrontpageBean> getFrontpage();
 
     /**
      * 分类数据: http://gank.io/api/data/数据类型/请求个数/第几页
@@ -41,16 +43,15 @@ public interface HttpClient {
      * eg: http://gank.io/api/data/Android/10/1
      */
     @GET("data/{type}/{pre_page}/{page}")
-    Observable<GankIODataBean> getGankIOData(@Path("type") String id, @Path("pre_page") int pre_page,@Path("page") int page);
-    @GET("data/福利/10/1")
-    Observable<GankIODataBean> getGankIOData1();
+    Observable<GankIODataBean> getGankIOData(@Path("type") String id, @Path("pre_page") int pre_page, @Path("page") int page);
 
-//    /**
-//     * 每日数据： http://gank.io/api/day/年/月/日
-//     * eg:http://gank.io/api/day/2015/08/06
-//     */
-//    @GET("day/{year}/{month}/{day}")
-//    Observable<GankIoDayBean> getGankIoDay(@Path("year") String year, @Path("month") String month, @Path("day") String day);
+
+    /**
+     * 每日数据： http://gank.io/api/day/年/月/日
+     * eg:http://gank.io/api/day/2015/08/06
+     */
+    @GET("day/{year}/{month}/{day}")
+    Observable<GankIODayBean> getGankIoDay(@Path("year") String year, @Path("month") String month, @Path("day") String day);
 //
 //    /**
 //     * 豆瓣热映电影，每日更新

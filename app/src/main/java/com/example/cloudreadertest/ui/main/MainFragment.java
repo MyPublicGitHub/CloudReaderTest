@@ -3,6 +3,7 @@ package com.example.cloudreadertest.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 
 import com.example.cloudreadertest.R;
@@ -25,7 +26,9 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        showLoading();
         initFragments();
+        showLoadSuccess();
     }
 
     @Override
@@ -46,6 +49,9 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
         tabs.add("安卓");
         MainFragmentPagerAdapter adapter = new MainFragmentPagerAdapter(getChildFragmentManager(), fragments, tabs);
         bindingView.viewPager.setAdapter(adapter);
+        bindingView.viewPager.setOffscreenPageLimit(3);
+        adapter.notifyDataSetChanged();
+        bindingView.tabLayout.setTabMode(TabLayout.MODE_FIXED);
         bindingView.tabLayout.setupWithViewPager(bindingView.viewPager);
         showLoadSuccess();
     }
