@@ -5,6 +5,9 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -23,36 +26,77 @@ public class CommonUtils {
     /**
      * 随机颜色
      */
-    public static int randomColor(){
+    public static int randomColor() {
         Random random = new Random();
-        int red = random.nextInt(150)+50;
-        int green = random.nextInt(150)+50;
-        int blue = random.nextInt(150)+50;
-        return Color.rgb(red,green,blue);
+        int red = random.nextInt(150) + 50;//50-199
+        int green = random.nextInt(150) + 50;//50-199
+        int blue = random.nextInt(150) + 50;//50-199
+        return Color.rgb(red, green, blue);
     }
+
     /**
-     * 获取年月日中的‘日’
+     * 得到年月日的"日"
      */
-    public static String getDateForDay(){
+    private String getDate() {
         Date date = new Date();
-        SimpleDateFormat simple = new SimpleDateFormat("dd");
-        return simple.format(date);
+        SimpleDateFormat dateFm = new SimpleDateFormat("dd");
+        return dateFm.format(date);
     }
+
     /**
-     * 获取屏幕PX
+     * 获取屏幕px
+     *
+     * @param context
+     * @return 分辨率
      */
-    public static int getSrceenPixels(Context context){
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.widthPixels;
+    static public int getScreenWidthPixels(Context context) {
+        DisplayMetrics dm = new DisplayMetrics();
+        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
+                .getMetrics(dm);
+        return dm.widthPixels;
     }
 
-    public static Drawable setDrawable(int resId){
-        return getResources().getDrawable(resId);
+//	public static void RunOnUiThread(Runnable r) {
+//		CloudReaderApplication.getInstance().getMainLooper().post(r);
+//	}
+
+    public static Drawable getDrawable(int resid) {
+        return getResoure().getDrawable(resid);
     }
 
-    public static Resources getResources(){
+    public static int getColor(int resid) {
+        return getResoure().getColor(resid);
+    }
+
+    public static Resources getResoure() {
         return CloudReaderTestApplication.getInstance().getResources();
+    }
+
+    public static String[] getStringArray(int resid) {
+        return getResoure().getStringArray(resid);
+    }
+
+    public static String getString(int resid) {
+        return getResoure().getString(resid);
+    }
+
+    public static float getDimens(int resId) {
+        return getResoure().getDimension(resId);
+    }
+
+    public static void removeSelfFromParent(View child) {
+
+        if (child != null) {
+
+            ViewParent parent = child.getParent();
+
+            if (parent instanceof ViewGroup) {
+
+                ViewGroup group = (ViewGroup) parent;
+
+                group.removeView(child);
+            }
+        }
     }
 
 
