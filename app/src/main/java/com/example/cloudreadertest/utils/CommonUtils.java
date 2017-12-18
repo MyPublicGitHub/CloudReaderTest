@@ -60,7 +60,7 @@ public class CommonUtils {
 //		CloudReaderApplication.getInstance().getMainLooper().post(r);
 //	}
 
-    public static Drawable getDrawable(int resid) {
+    public static Drawable setDrawable(int resid) {
         return getResoure().getDrawable(resid);
     }
 
