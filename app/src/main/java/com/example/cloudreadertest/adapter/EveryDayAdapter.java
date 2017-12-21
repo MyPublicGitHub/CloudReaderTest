@@ -70,7 +70,7 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             int index = 0;
             String title = object.get(0).type_title;
             binding.tvTitle.setText(title);
-            if ("安卓".equals(title)) {
+            if ("Android".equals(title)) {
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_android));
             } else if ("福利".equals(title)) {
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_meizi));
@@ -92,6 +92,11 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             } else {
                 binding.viewLine.setVisibility(View.VISIBLE);
             }
+            binding.tvMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                }
+            });
         }
     }
     private class OneHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayOneBinding> {
@@ -145,19 +150,13 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             AndroidBean bean1 = object.get(1);
             AndroidBean bean2 = object.get(2);
             ImageLoadUtils.displayRandom(3,bean.image_url,binding.ivLeft);
-            DebugUtil.debug("bean.image_url:"+bean.image_url);
             ImageLoadUtils.displayRandom(3,bean1.image_url,binding.ivCenter);
-            DebugUtil.debug("bean1.image_url:"+bean1.image_url);
             ImageLoadUtils.displayRandom(3,bean2.image_url,binding.ivRight);
-            DebugUtil.debug("bean2.image_url:"+bean2.image_url);
             binding.tvLeft.setText(bean.desc);
             binding.tvCenter.setText(bean1.desc);
             binding.tvRight.setText(bean2.desc);
 
 
         }
-    }
-    private void displayRandomImage(int imageNumber, int position, ImageView imageView,List<AndroidBean> list){
-        ImageLoadUtils.displayRandom(imageNumber,list.get(position).image_url,imageView);
     }
 }

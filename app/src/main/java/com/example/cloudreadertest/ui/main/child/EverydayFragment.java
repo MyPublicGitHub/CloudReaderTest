@@ -23,10 +23,13 @@ import com.example.cloudreadertest.databinding.ItemHeaderEverydayBinding;
 import com.example.cloudreadertest.http.cache.Cache;
 import com.example.cloudreadertest.http.rx.RequestImplements;
 import com.example.cloudreadertest.model.EverydayModel;
+import com.example.cloudreadertest.utils.DebugUtil;
 import com.example.cloudreadertest.utils.GlideImageLoader;
 import com.example.cloudreadertest.utils.SPUtils;
 import com.example.cloudreadertest.utils.TimeUtil;
 import com.example.cloudreadertest.utils.ToastUtil;
+import com.example.cloudreadertest.view.webview.WebViewActivity;
+import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +41,7 @@ import rx.Subscription;
  */
 public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     private RotateAnimation animation;
-    private ItemHeaderEverydayBinding mItemHeaderEverydayBinding;
+    private ItemHeaderEverydayBinding mHeaderBinding;
     private boolean mIsPrepared;
     private Cache mCache;
     // 是否是上一天的请求
@@ -58,16 +61,21 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     private void initData() {
         mCache = Cache.get(getContext());
         mBannerImages = (ArrayList<String>) mCache.getAsObject(Constants.BANNER_PIC);
-        mEverydayModle = new EverydayModel();
-        mItemHeaderEverydayBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_header_everyday, null, false);
-        mItemHeaderEverydayBinding.includeHeader.tvDay.setText(TimeUtil.getDayFromData().startsWith("0") ? TimeUtil.getDayFromData().substring(1) : TimeUtil.getDayFromData());
+        mEverydayModel = new EverydayModel();
+        mHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_header_everyday, null, false);
+        mHeaderBinding.includeHeader.tvDay.setText(TimeUtil.getDayFromData().startsWith("0") ? TimeUtil.getDayFromData().substring(1) : TimeUtil.getDayFromData());
+        mYear = TimeUtil.getYearFromData();
+        mMonth = TimeUtil.getMonthFromData();
+        mDay = TimeUtil.getDayFromData();
+
+
     }
 
     @Override
     protected void loadData() {
-        if (mItemHeaderEverydayBinding != null && mItemHeaderEverydayBinding.bannerHome != null) {
-            mItemHeaderEverydayBinding.bannerHome.setDelayTime(5000);
-            mItemHeaderEverydayBinding.bannerHome.startAutoPlay();
+        if (mHeaderBinding != null && mHeaderBinding.bannerHome != null) {
+            mHeaderBinding.bannerHome.setDelayTime(5000);
+            mHeaderBinding.bannerHome.startAutoPlay();
         }
         if (!mIsVisible || !mIsPrepared) {
             return;
@@ -78,13 +86,19 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
                 isOldDayRequest = false;
                 showRotaLoading(true);
                 showBanner();
-                showContentData(TimeUtil.getYearFromData(), TimeUtil.getMonthFromData(), TimeUtil.getDayFromData());
+                showContentData(mYear, mMonth, mDay);
+                DebugUtil.debug("请求新数据");
             } else {//取缓存
                 isOldDayRequest = true;
                 ArrayList<String> lastTime = TimeUtil.getLastTime(TimeUtil.getYearFromData(), TimeUtil.getMonthFromData(), TimeUtil.getDayFromData());
-                getCacheData(lastTime.get(0), lastTime.get(1), lastTime.get(2));
+                mYear = lastTime.get(0);
+                mMonth = lastTime.get(1);
+                mDay = lastTime.get(2);
+                DebugUtil.debug("去缓存111111111111");
+                getCacheData(mYear, mMonth, mDay);
             }
         } else {//当天，取缓存，如果没有请求网络当天
+            DebugUtil.debug("去缓存222222222");
             isOldDayRequest = false;
             getCacheData(TimeUtil.getYearFromData(), TimeUtil.getMonthFromData(), TimeUtil.getDayFromData());
         }
@@ -99,7 +113,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
             if (mBannerImages == null || mBannerImages.size() <= 0) {
                 showBanner();
             } else {
-                mItemHeaderEverydayBinding.bannerHome.setImages(mBannerImages).setImageLoader(new GlideImageLoader()).start();
+                mHeaderBinding.bannerHome.setImages(mBannerImages).setImageLoader(new GlideImageLoader()).start();
             }
             mLists = (ArrayList<List<AndroidBean>>) mCache.getAsObject(Constants.EVERYDAY_CONTENT);
             if (mLists == null || mLists.size() <= 0) {
@@ -123,11 +137,13 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         }
     }
 
-    EverydayModel mEverydayModle;
+    EverydayModel mEverydayModel;
     ArrayList<String> mBannerImages;
-
+    /**
+     * 获取banner
+     */
     private void showBanner() {
-        mEverydayModle.showBannerPage(new RequestImplements() {
+        mEverydayModel.showBannerPage(new RequestImplements() {
             @Override
             public void loadSuccess(Object object) {
                 FrontpageBean bean = (FrontpageBean) object;
@@ -136,13 +152,25 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
                 } else {
                     mBannerImages.clear();
                 }
+
                 if (bean != null && bean.result != null && bean.result.focus != null && bean.result.focus.result != null) {
-                    List<FrontpageBean.ResultBean.FocusBean.ResultBeanXXXXXXXXXXX> result = bean.result.focus.result;
+                    final List<FrontpageBean.ResultBean.FocusBean.ResultBeanXXXXXXXXXXX> result = bean.result.focus.result;
                     if (result != null && result.size() > 0) {
                         for (int i = 0; i < result.size(); i++) {
                             mBannerImages.add(result.get(i).randpic);
                         }
-                        mItemHeaderEverydayBinding.bannerHome.setImages(mBannerImages).setImageLoader(new GlideImageLoader()).start();
+                        mHeaderBinding.bannerHome.setImages(mBannerImages).setImageLoader(new GlideImageLoader()).start();
+                        mHeaderBinding.bannerHome.setOnBannerClickListener(new OnBannerClickListener() {
+                            @Override
+                            public void OnBannerClick(int position) {
+                                position = position - 1;
+                                if (result.get(position) != null && result.get(position).code != null && result.get(position).code.startsWith("http")) {
+                                    WebViewActivity.loadUrl(getContext(), result.get(position).code, result.get(position).randpic_desc + "详情");
+                                }
+                            }
+                        });
+                        mCache.remove(Constants.BANNER_PIC);
+                        mCache.put(Constants.BANNER_PIC, mBannerImages, 30000);
                     }
                 }
             }
@@ -161,8 +189,11 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
 
     private ArrayList<List<AndroidBean>> mLists;
 
+    /**
+     * 获取推荐内容
+     */
     private void showContentData(String year, String month, String day) {
-        mEverydayModle.showRecylerViewData(year, month, day, new RequestImplements() {
+        mEverydayModel.showRecyclerViewData(year, month, day, new RequestImplements() {
             @Override
             public void loadSuccess(Object object) {
                 if (mLists != null) {
@@ -172,7 +203,8 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
                 if (mLists != null && mLists.size() > 0 && mLists.get(0).size() > 0) {
                     setAdapter(mLists);
                 } else {
-                    ToastUtil.showToast("错误");
+                    ToastUtil.showToast("加载旧数据："+mYear+mMonth+mDay);
+                    requestBeforeData();
                 }
             }
 
@@ -189,10 +221,28 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         });
     }
 
+    private String mYear, mMonth, mDay;
+
+    /**
+     * 取昨天的数据
+     */
+    private void requestBeforeData() {
+        mLists = (ArrayList<List<AndroidBean>>) mCache.getAsObject(Constants.EVERYDAY_CONTENT);
+        if (mLists != null && mLists.size() > 0) {
+            setAdapter(mLists);
+        } else {
+            ArrayList<String> lastData = TimeUtil.getLastTime(mYear, mMonth, mDay);
+            mYear = lastData.get(0);
+            mMonth = lastData.get(1);
+            mDay = lastData.get(2);
+            showContentData(mYear, mMonth, mDay);
+        }
+    }
+
     private void initXRV() {
         bindingView.xrvEveryday.setPullRefreshEnabled(false);
         bindingView.xrvEveryday.setLoadingMoreEnabled(false);
-        bindingView.xrvEveryday.addHeaderView(mItemHeaderEverydayBinding.getRoot());
+        bindingView.xrvEveryday.addHeaderView(mHeaderBinding.getRoot());
 
         bindingView.xrvEveryday.setLayoutManager(new LinearLayoutManager(getContext()));
         bindingView.xrvEveryday.setItemAnimator(new DefaultItemAnimator());
@@ -240,8 +290,8 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
 
     @Override
     protected void onInvisible() {
-        if (mItemHeaderEverydayBinding != null && mItemHeaderEverydayBinding.bannerHome != null) {
-            mItemHeaderEverydayBinding.bannerHome.stopAutoPlay();
+        if (mHeaderBinding != null && mHeaderBinding.bannerHome != null) {
+            mHeaderBinding.bannerHome.stopAutoPlay();
         }
     }
 
@@ -256,5 +306,12 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     public void onPause() {
         super.onPause();
         Glide.with(getActivity()).pauseRequests();
+    }
+
+    @Override
+    protected void onRefresh() {
+        showLoadSuccess();
+        showRotaLoading(true);
+        loadData();
     }
 }

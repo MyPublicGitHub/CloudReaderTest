@@ -51,7 +51,7 @@ public class EverydayModel {
         requestImplements.addSubscription(subscription);
     }
 
-    public void showRecylerViewData(String year, String month, String day, final RequestImplements requestImplements) {
+    public void showRecyclerViewData(String year, String month, String day, final RequestImplements requestImplements) {
         SPUtils.putString(HOME_ONE, "");
         SPUtils.putString(HOME_TWO, "");
         SPUtils.putString(HOME_SIX, "");
@@ -87,25 +87,24 @@ public class EverydayModel {
                 return Observable.just(lists);
             }
         };
-        Observer<List<List<AndroidBean>>> observer = new Observer<List<List<AndroidBean>>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                requestImplements.loadFailed();
-            }
-
-            @Override
-            public void onNext(List<List<AndroidBean>> lists) {
-                requestImplements.loadSuccess(lists);
-            }
-        };
         Subscription subscription = HttpClient.Builder.getGankIOServer().getGankIoDay(year, month, day)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).flatMap(func1)
-                .subscribe(observer);
+                .subscribe(new Observer<List<List<AndroidBean>>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        requestImplements.loadFailed();
+                    }
+
+                    @Override
+                    public void onNext(List<List<AndroidBean>> lists) {
+                        requestImplements.loadSuccess(lists);
+                    }
+                });
 
         requestImplements.addSubscription(subscription);
     }
