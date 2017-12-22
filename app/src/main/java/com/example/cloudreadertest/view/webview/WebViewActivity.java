@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import com.example.cloudreadertest.R;
 import com.example.cloudreadertest.databinding.ActivityWebViewBinding;
 import com.example.cloudreadertest.utils.CommonUtils;
+import com.example.cloudreadertest.utils.DebugUtil;
 import com.example.cloudreadertest.utils.ToastUtil;
 import com.example.cloudreadertest.view.statusbar.StatusBarUtil;
 import com.example.cloudreadertest.view.webview.config.FullscreenHolder;
@@ -106,7 +107,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.mipmap.icon_back);
         }
-        mBinding.toolbar.setTitle(mTitle);
+        setTitle(mTitle);
         mBinding.toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         mBinding.toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));
         mBinding.toolbar.setNavigationOnClickListener(onClickListener);
@@ -157,6 +158,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     @Override
     public void hindProgressBar() {
+        DebugUtil.debug("............web2..........");
         mBinding.progressBar.setVisibility(View.GONE);
     }
 
@@ -167,7 +169,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     @Override
     public void hindWebView() {
-        mBinding.webView.setVisibility(View.GONE);
+        mBinding.webView.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -264,7 +266,9 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
         }
         return false;
     }
-
+    public void setTitle(String mTitle) {
+        mBinding.toolbar.setTitle(mTitle);
+    }
     public void startProgress90() {
         for (int i = 0; i < 900; i++) {
             final int progress = i + 1;

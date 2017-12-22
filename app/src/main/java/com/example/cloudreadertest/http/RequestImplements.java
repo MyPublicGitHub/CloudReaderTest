@@ -1,4 +1,4 @@
-package com.example.cloudreadertest.http.rx;
+package com.example.cloudreadertest.http;
 
 import rx.Subscription;
 

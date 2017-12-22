@@ -1,7 +1,7 @@
 package com.example.cloudreadertest.model;
 
-import com.example.cloudreadertest.http.rx.HttpClient;
-import com.example.cloudreadertest.http.rx.RequestImplements;
+import com.example.cloudreadertest.http.HttpClient;
+import com.example.cloudreadertest.http.RequestImplements;
 
 import rx.Observer;
 import rx.Subscription;

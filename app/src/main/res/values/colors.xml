@@ -15,4 +15,8 @@
     <color name="colorRed">#ffce3d3a</color>
     <!--水波纹或5.0以下选择器颜色-->
     <color name="tabBackground">#777D7D7D</color>
+    <!--tab标签栏文字的颜色-->
+    <color name="colorTabText">#585858</color>
+    <!--谈蓝色  用于首页调整点击变色-->
+    <color name="colorSmallRed">#a2aff5</color>
 </resources>

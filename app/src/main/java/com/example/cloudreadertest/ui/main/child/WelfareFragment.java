@@ -14,7 +14,7 @@ import com.example.cloudreadertest.base.baseadapter.OnItemClickListener;
 import com.example.cloudreadertest.bean.GankIODataBean;
 import com.example.cloudreadertest.databinding.FragmentWelfareBinding;
 import com.example.cloudreadertest.http.cache.Cache;
-import com.example.cloudreadertest.http.rx.RequestImplements;
+import com.example.cloudreadertest.http.RequestImplements;
 import com.example.cloudreadertest.model.GankOtherModel;
 import com.example.cloudreadertest.utils.DebugUtil;
 import com.example.cloudreadertest.view.viewbigimage.ViewBigImageActivity;

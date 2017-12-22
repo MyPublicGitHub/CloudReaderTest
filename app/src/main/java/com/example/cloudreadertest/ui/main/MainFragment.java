@@ -10,6 +10,8 @@ import com.example.cloudreadertest.R;
 import com.example.cloudreadertest.adapter.MainFragmentPagerAdapter;
 import com.example.cloudreadertest.base.BaseFragment;
 import com.example.cloudreadertest.databinding.FragmentMainBinding;
+import com.example.cloudreadertest.http.rx.RxBus;
+import com.example.cloudreadertest.http.rx.RxCodeConstants;
 import com.example.cloudreadertest.ui.main.child.AndroidFragment;
 import com.example.cloudreadertest.ui.main.child.CustomFragment;
 import com.example.cloudreadertest.ui.main.child.EverydayFragment;
@@ -17,8 +19,10 @@ import com.example.cloudreadertest.ui.main.child.WelfareFragment;
 
 import java.util.ArrayList;
 
+import rx.Subscription;
+import rx.functions.Action1;
+
 /**
- * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends BaseFragment<FragmentMainBinding> {
 
@@ -28,6 +32,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
         super.onActivityCreated(savedInstanceState);
         showLoading();
         initFragments();
+        initRxBus();
         showLoadSuccess();
     }
 
@@ -53,7 +58,26 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
         adapter.notifyDataSetChanged();
         bindingView.tabLayout.setTabMode(TabLayout.MODE_FIXED);
         bindingView.tabLayout.setupWithViewPager(bindingView.viewPager);
-        showLoadSuccess();
     }
 
+    private void initRxBus() {
+        Subscription subscription = RxBus.getDefault().toObservable(RxCodeConstants.JUMP_TYPE, Integer.class)
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        switch (integer) {
+                            case 0:
+                                bindingView.viewPager.setCurrentItem(3);
+                                break;
+                            case 1:
+                                bindingView.viewPager.setCurrentItem(1);
+                                break;
+                            case 2:
+                                bindingView.viewPager.setCurrentItem(2);
+                                break;
+                        }
+                    }
+                });
+        addSubscription(subscription);
+    }
 }

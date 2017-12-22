@@ -6,8 +6,8 @@ import com.example.cloudreadertest.app.ConstantsImageUrl;
 import com.example.cloudreadertest.bean.FrontpageBean;
 import com.example.cloudreadertest.bean.GankIODayBean;
 import com.example.cloudreadertest.bean.GankIODayBean.ResultsBean.AndroidBean;
-import com.example.cloudreadertest.http.rx.HttpClient;
-import com.example.cloudreadertest.http.rx.RequestImplements;
+import com.example.cloudreadertest.http.HttpClient;
+import com.example.cloudreadertest.http.RequestImplements;
 import com.example.cloudreadertest.utils.SPUtils;
 
 import java.util.ArrayList;

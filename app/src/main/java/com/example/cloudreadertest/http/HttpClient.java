@@ -1,4 +1,4 @@
-package com.example.cloudreadertest.http.rx;
+package com.example.cloudreadertest.http;
 
 import com.example.cloudreadertest.bean.FrontpageBean;
 import com.example.cloudreadertest.bean.GankIODataBean;

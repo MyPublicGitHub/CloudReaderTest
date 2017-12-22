@@ -1,9 +1,13 @@
 package com.example.cloudreadertest.adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.cloudreadertest.R;
@@ -14,9 +18,13 @@ import com.example.cloudreadertest.databinding.ItemEverydayOneBinding;
 import com.example.cloudreadertest.databinding.ItemEverydayThreeBinding;
 import com.example.cloudreadertest.databinding.ItemEverydayTitleBinding;
 import com.example.cloudreadertest.databinding.ItemEverydayTwoBinding;
+import com.example.cloudreadertest.http.rx.RxBus;
+import com.example.cloudreadertest.http.rx.RxCodeConstants;
 import com.example.cloudreadertest.utils.CommonUtils;
 import com.example.cloudreadertest.utils.DebugUtil;
 import com.example.cloudreadertest.utils.ImageLoadUtils;
+import com.example.cloudreadertest.utils.PerfectClickListener;
+import com.example.cloudreadertest.view.webview.WebViewActivity;
 
 import java.util.List;
 
@@ -71,20 +79,28 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             String title = object.get(0).type_title;
             binding.tvTitle.setText(title);
             if ("Android".equals(title)) {
+                index = 0;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_android));
             } else if ("福利".equals(title)) {
+                index = 1;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_meizi));
             } else if ("iOS".equals(title)) {
+                index = 2;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_ios));
             } else if ("休息视频".equals(title)) {
+                index = 2;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_movie));
             } else if ("拓展资源".equals(title)) {
+                index = 2;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_source));
             } else if ("瞎推荐".equals(title)) {
+                index = 2;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_xia));
             } else if ("前端".equals(title)) {
+                index = 2;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_qian));
             } else if ("App".equals(title)) {
+                index = 2;
                 binding.ivTitle.setImageDrawable(CommonUtils.setDrawable(R.mipmap.home_title_app));
             }
             if (position == 0) {
@@ -92,13 +108,18 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             } else {
                 binding.viewLine.setVisibility(View.VISIBLE);
             }
+
+            final int finalIndex = index;
             binding.tvMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    DebugUtil.debug("点击更多");
+                    RxBus.getDefault().post(RxCodeConstants.JUMP_TYPE, finalIndex);
                 }
             });
         }
     }
+
     private class OneHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayOneBinding> {
 
         public OneHolder(ViewGroup viewGroup, int layoutId) {
@@ -108,20 +129,22 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
         @Override
         public void onBindViewHolder(List<AndroidBean> object, int position) {
             AndroidBean bean = object.get(0);
-            if ("福利".equals(bean.type)){
+            if ("福利".equals(bean.type)) {
                 binding.ivContent.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Glide.with(binding.ivContent.getContext())
-                        .load(bean.image_url)
+                        .load(bean.url)
                         .crossFade(1500)
                         .placeholder(R.mipmap.img_two_bi_one)
                         .error(R.mipmap.img_two_bi_one)
                         .into(binding.ivContent);
-            }else {
-                ImageLoadUtils.displayRandom(1,bean.image_url,binding.ivContent);
+            } else {
+                ImageLoadUtils.displayRandom(1, bean.image_url, binding.ivContent);
             }
             binding.tvContent.setText(object.get(0).desc);
+            setOnClick(binding.llContent, bean);
         }
     }
+
     private class TwoHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayTwoBinding> {
 
         public TwoHolder(ViewGroup viewGroup, int layoutId) {
@@ -132,12 +155,15 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
         public void onBindViewHolder(List<AndroidBean> object, int position) {
             AndroidBean bean = object.get(0);
             AndroidBean bean1 = object.get(1);
-            ImageLoadUtils.displayRandom(2,bean.image_url,binding.ivLeft);
-            ImageLoadUtils.displayRandom(2,bean1.image_url,binding.ivRight);
+            ImageLoadUtils.displayRandom(2, bean.image_url, binding.ivLeft);
+            ImageLoadUtils.displayRandom(2, bean1.image_url, binding.ivRight);
             binding.tvLeft.setText(bean.desc);
             binding.tvRight.setText(bean1.desc);
+            setOnClick(binding.llLeft, bean);
+            setOnClick(binding.llRight, bean1);
         }
     }
+
     private class ThreeHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayThreeBinding> {
 
         public ThreeHolder(ViewGroup viewGroup, int layoutId) {
@@ -149,14 +175,44 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             AndroidBean bean = object.get(0);
             AndroidBean bean1 = object.get(1);
             AndroidBean bean2 = object.get(2);
-            ImageLoadUtils.displayRandom(3,bean.image_url,binding.ivLeft);
-            ImageLoadUtils.displayRandom(3,bean1.image_url,binding.ivCenter);
-            ImageLoadUtils.displayRandom(3,bean2.image_url,binding.ivRight);
+            ImageLoadUtils.displayRandom(3, bean.image_url, binding.ivLeft);
+            ImageLoadUtils.displayRandom(3, bean1.image_url, binding.ivCenter);
+            ImageLoadUtils.displayRandom(3, bean2.image_url, binding.ivRight);
             binding.tvLeft.setText(bean.desc);
             binding.tvCenter.setText(bean1.desc);
             binding.tvRight.setText(bean2.desc);
-
+            setOnClick(binding.llLeft, bean);
+            setOnClick(binding.llCenter, bean1);
+            setOnClick(binding.llRight, bean2);
 
         }
+    }
+
+    private void setOnClick(final LinearLayout linearLayout, final AndroidBean bean) {
+        linearLayout.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View view) {
+                WebViewActivity.loadUrl(view.getContext(), bean.url, bean.desc);
+            }
+        });
+        linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                View v = View.inflate(view.getContext(), R.layout.titlr_douban_top, null);
+                TextView textView = v.findViewById(R.id.tv_title);
+                textView.setTextSize(14);
+                textView.setText(TextUtils.isEmpty(bean.type) ? bean.desc : bean.type + "：" + bean.desc);
+                builder.setCustomTitle(v);
+                builder.setPositiveButton("查看详情", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        WebViewActivity.loadUrl(linearLayout.getContext(), bean.url, bean.desc);
+                    }
+                });
+                builder.show();
+                return false;
+            }
+        });
     }
 }
