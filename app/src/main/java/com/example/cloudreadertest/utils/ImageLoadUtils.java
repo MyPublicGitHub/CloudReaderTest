@@ -155,5 +155,19 @@ public class ImageLoadUtils {
                 return R.mipmap.img_four_bi_three;
         }
     }
+    /**
+     * 用于干货item，将gif图转换为静态图
+     */
+    public static void displayGif(String url, ImageView imageView) {
 
+        Glide.with(imageView.getContext()).load(url)
+                .asBitmap()
+                .placeholder(R.mipmap.img_one_bi_one)
+                .error(R.mipmap.img_one_bi_one)
+//                .skipMemoryCache(true) //跳过内存缓存
+//                .crossFade(1000)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)// 缓存图片源文件（解决加载gif内存溢出问题）
+//                .into(new GlideDrawableImageViewTarget(imageView, 1));
+                .into(imageView);
+    }
 }

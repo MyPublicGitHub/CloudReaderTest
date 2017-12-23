@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
  */
 public class GankOtherModel {
 
-    private String dataType;//数据类型
+    private String dataType;//数据类型  福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
     private int pre_page;//数量
     private int page;//页码
 

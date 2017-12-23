@@ -357,4 +357,5 @@ public class XRecyclerView extends RecyclerView {
             ((LoadingMoreFooter) footView).reSet();
         }
     }
+
 }

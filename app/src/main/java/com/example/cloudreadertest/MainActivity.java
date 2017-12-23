@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.example.cloudreadertest.adapter.MainActivityPagerAdapter;
+import com.example.cloudreadertest.app.ConstantsImageUrl;
 import com.example.cloudreadertest.databinding.ActivityMainBinding;
 import com.example.cloudreadertest.databinding.LayoutHeaderNavigationViewBinding;
 import com.example.cloudreadertest.http.rx.RxBus;
@@ -18,7 +19,9 @@ import com.example.cloudreadertest.http.rx.RxCodeConstants;
 import com.example.cloudreadertest.ui.friends.FriendsFragment;
 import com.example.cloudreadertest.ui.main.MainFragment;
 import com.example.cloudreadertest.ui.music.MusicFragment;
+import com.example.cloudreadertest.utils.CommonUtils;
 import com.example.cloudreadertest.utils.ImageLoadUtils;
+import com.example.cloudreadertest.view.statusbar.StatusBarUtil;
 
 import java.util.ArrayList;
 
@@ -34,14 +37,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         initView();
-        initListener();
-        initFragments();
         initRxBus();
+        StatusBarUtil.setColorNoTranslucentForDrawerLayout(this, mBinding.drawerLayout, CommonUtils.getColor(R.color.colorTheme));
+        initFragments();
+        initListener();
     }
-    private void initView(){
+
+    private void initView() {
         View headerView = mBinding.navigationView.getHeaderView(0);
         LayoutHeaderNavigationViewBinding bind = DataBindingUtil.bind(headerView);
-        ImageLoadUtils.displayCircle(bind.ivHeadPortrait,R.mipmap.ic_launcher);
+        ImageLoadUtils.displayCircle(bind.ivHeadPortrait, ConstantsImageUrl.IC_AVATAR);
 
     }
 
@@ -127,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     /**
      * 每日推荐点击“电影按钮”跳转
      */
-    private void initRxBus(){
-        RxBus.getDefault().toObservable(RxCodeConstants.JUMP_TYPE_TO_ONE,RxBusBaseMessage.class)
+    private void initRxBus() {
+        RxBus.getDefault().toObservable(RxCodeConstants.JUMP_TYPE_TO_ONE, RxBusBaseMessage.class)
                 .subscribe(new Action1<RxBusBaseMessage>() {
                     @Override
                     public void call(RxBusBaseMessage message) {
