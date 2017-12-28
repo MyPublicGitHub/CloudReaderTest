@@ -57,8 +57,8 @@ public class CustomAdapter extends BaseRecyclerViewAdapter<GankIODataBean.Result
             //显示git很消耗内存
             if (bean.images != null && bean.images.size() > 0 && !TextUtils.isEmpty(bean.images.get(0))) {
                 binding.ivImage.setVisibility(View.VISIBLE);
-                ImageLoadUtils.displayGif(bean.images.get(0),binding.ivImage);
-            }else {
+                ImageLoadUtils.displayGif(bean.images.get(0), binding.ivImage);
+            } else {
                 binding.ivImage.setVisibility(View.GONE);
             }
             binding.llAll.setOnClickListener(new View.OnClickListener() {

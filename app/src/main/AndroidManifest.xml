@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.viewbigimage.ViewBigImageActivity" />
-        <activity android:name=".view.webview.WebViewActivity"></activity>
+        <activity android:name=".view.webview.WebViewActivity" />
     </application>
 
 </manifest>

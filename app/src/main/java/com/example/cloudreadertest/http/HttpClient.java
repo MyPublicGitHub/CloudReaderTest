@@ -52,13 +52,12 @@ public interface HttpClient {
      */
     @GET("day/{year}/{month}/{day}")
     Observable<GankIODayBean> getGankIoDay(@Path("year") String year, @Path("month") String month, @Path("day") String day);
-//
-//    /**
-//     * 豆瓣热映电影，每日更新
-//     */
-//    @GET("v2/movie/in_theaters")
-//    Observable<HotMovieBean> getHotMovie();
-//
+
+    /**
+     * 豆瓣热映电影，每日更新
+     */
+    @GET("v2/movie/in_theaters")
+    Observable<HotMovieBean> getHotMovie();
 //    /**
 //     * 获取电影详情
 //     *
