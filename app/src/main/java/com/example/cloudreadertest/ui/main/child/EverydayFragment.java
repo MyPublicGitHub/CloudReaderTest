@@ -115,11 +115,11 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
                 mYear = lastTime.get(0);
                 mMonth = lastTime.get(1);
                 mDay = lastTime.get(2);
-                DebugUtil.debug("去缓存111111111111");
+                DebugUtil.debug("缓存"+mDay);
                 getCacheData(mYear, mMonth, mDay);
             }
         } else {//当天，取缓存，如果没有请求网络当天
-            DebugUtil.debug("去缓存222222222");
+            DebugUtil.debug("缓存"+mDay);
             isOldDayRequest = false;
             getCacheData(TimeUtil.getYearFromData(), TimeUtil.getMonthFromData(), TimeUtil.getDayFromData());
         }

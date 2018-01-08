@@ -31,9 +31,6 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
     private ImageView ivLoading;
     protected AnimationDrawable mAnimationDrawable;
     private LinearLayout llLoadError;
-    public BaseFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

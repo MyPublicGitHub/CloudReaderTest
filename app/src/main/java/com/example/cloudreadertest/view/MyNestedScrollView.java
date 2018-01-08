@@ -1,0 +1,44 @@
+package com.example.cloudreadertest.view;
+
+import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
+import android.util.AttributeSet;
+
+/**
+ * Created by 冯涛 on 2018/1/5.
+ * E-mail:716774214@qq.com
+ * 系统的滚动监听只能api23以上用，这为了兼容
+ */
+public class MyNestedScrollView extends NestedScrollView {
+
+    private ScrollInterface mScrollInterface;
+
+    public interface ScrollInterface {
+        void onScrollChange(int scrollX, int scrollY, int oldScrollX, int oldScrollY);
+    }
+
+    public MyNestedScrollView(Context context) {
+        super(context);
+    }
+
+    public MyNestedScrollView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public MyNestedScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        if (mScrollInterface == null) {
+            mScrollInterface.onScrollChange(l, t, oldl, oldt);
+        }
+        super.onScrollChanged(l, t, oldl, oldt);
+    }
+
+    public void setOnScrollChangeLintener(ScrollInterface scrollInterface) {
+        mScrollInterface = scrollInterface;
+    }
+
+}

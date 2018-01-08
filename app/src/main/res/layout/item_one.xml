@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.example.cloudreadertest.utils.StringFormatUtil" />
+
+        <variable
+            name="bean"
+            type="com.example.cloudreadertest.bean.HotMovieBean.SubjectsBean" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/iv_images"
+            android:layout_width="100dp"
+            android:layout_height="132dp"
+            android:layout_marginRight="12dp"
+            android:background="@mipmap/ic_launcher"
+            android:scaleType="fitXY"
+            android:showMovieImg="@{bean.images.large}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{bean.title}"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="导演："
+                            android:textColor="@color/colorTabText"
+                            android:textSize="13sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginRight="7.5dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@color/colorTheme" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_directors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{@string/item_one_main+StringFormatUtil.formatName(bean.directors)}"
+                        android:textColor="@color/colorTabText"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_casts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{StringFormatUtil.formatName(bean.casts)}"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_genres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text='@{@string/item_one_type+StringFormatUtil.formatGenres(bean.genres)}'
+                    android:textColor="@color/colorTabText"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_average"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text='@{@string/item_one_average+bean.rating.average}'
+                    android:textColor="@color/colorTabText"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorTheme" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

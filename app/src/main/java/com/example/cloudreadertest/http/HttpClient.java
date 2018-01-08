@@ -3,10 +3,12 @@ package com.example.cloudreadertest.http;
 import com.example.cloudreadertest.bean.FrontpageBean;
 import com.example.cloudreadertest.bean.GankIODataBean;
 import com.example.cloudreadertest.bean.GankIODayBean;
+import com.example.cloudreadertest.bean.HotMovieBean;
 import com.example.http.HttpUtils;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -65,15 +67,15 @@ public interface HttpClient {
 //     */
 //    @GET("v2/movie/subject/{id}")
 //    Observable<MovieDetailBean> getMovieDetail(@Path("id") String id);
-//
-//    /**
-//     * 获取豆瓣电影top250
-//     *
-//     * @param start 从多少开始，如从"0"开始
-//     * @param count 一次请求的数目，如"10"条，最多100
-//     */
-//    @GET("v2/movie/top250")
-//    Observable<HotMovieBean> getMovieTop250(@Query("start") int start, @Query("count") int count);
+
+    /**
+     * 获取豆瓣电影top250
+     *
+     * @param start 从多少开始，如从"0"开始
+     * @param count 一次请求的数目，如"10"条，最多100
+     */
+    @GET("v2/movie/top250")
+    Observable<HotMovieBean> getMovieTop250(@Query("start") int start, @Query("count") int count);
 //
 //    /**
 //     * 根据tag获取图书

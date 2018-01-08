@@ -25,6 +25,8 @@ public class Constants {
     // 缓存妹子
     public static String GANK_MEIZI = "gank_meizi";
     public static String CUSTOM_CALA_TYPE = "gank_cala";
+    //请求电影时间
+    public static String ONE_DATA = "one_data";
 
 
 

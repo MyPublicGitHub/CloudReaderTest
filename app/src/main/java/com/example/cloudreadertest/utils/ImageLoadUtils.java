@@ -170,4 +170,19 @@ public class ImageLoadUtils {
 //                .into(new GlideDrawableImageViewTarget(imageView, 1));
                 .into(imageView);
     }
+
+    /**
+     * 电影列表图片
+     */
+    @BindingAdapter("android:showMovieImg")
+    public static void showMovieImg(ImageView imageView, String url) {
+        Glide.with(imageView.getContext())
+                .load(url)
+                .crossFade(500)
+                .override((int) CommonUtils.getDimens(R.dimen.movie_detail_width), (int) CommonUtils.getDimens(R.dimen.movie_detail_height))
+                .placeholder(getDefaultPic(0))
+                .error(getDefaultPic(0))
+                .into(imageView);
+    }
+
 }
