@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 /**
  * Created by 筑库 on 2017/11/9.
  */
@@ -155,6 +157,7 @@ public class ImageLoadUtils {
                 return R.mipmap.img_four_bi_three;
         }
     }
+
     /**
      * 用于干货item，将gif图转换为静态图
      */
@@ -185,4 +188,52 @@ public class ImageLoadUtils {
                 .into(imageView);
     }
 
+    /**
+     * 书籍列表图片
+     */
+    @BindingAdapter("android:showBookImg")
+    public static void showBookImg(ImageView imageView, String url) {
+        Glide.with(imageView.getContext())
+                .load(url)
+                .crossFade(500)
+                .override((int) CommonUtils.getDimens(R.dimen.book_detail_width), (int) CommonUtils.getDimens(R.dimen.book_detail_height))
+                .placeholder(getDefaultPic(2))
+                .error(getDefaultPic(2))
+                .into(imageView);
+    }
+
+    /**
+     * 电影详情页显示高斯背景图
+     */
+    @BindingAdapter("android:showImgBg")
+    public static void showImgBg(ImageView imageView, String url) {
+        displayGaussian(imageView.getContext(), url, imageView);
+    }
+
+    /**
+     * 显示高斯模糊效果（电影详情页）
+     */
+    private static void displayGaussian(Context context, String url, ImageView imageView) {
+        // "23":模糊度；"4":图片缩放4倍后再进行模糊
+        Glide.with(context)
+                .load(url)
+                .error(R.mipmap.stackblur_default)
+                .placeholder(R.mipmap.stackblur_default)
+                .crossFade(500)
+                .bitmapTransform(new BlurTransformation(context, 23, 4))
+                .into(imageView);
+    }
+
+    /**
+     * 电影详情页显示电影图片(等待被替换)（测试的还在，已可以弃用）
+     * 没有加载中的图
+     */
+    @BindingAdapter("android:showImg")
+    public static void showImg(ImageView imageView, String url) {
+        Glide.with(imageView.getContext())
+                .load(url)
+                .crossFade(500)
+                .error(getDefaultPic(0))
+                .into(imageView);
+    }
 }

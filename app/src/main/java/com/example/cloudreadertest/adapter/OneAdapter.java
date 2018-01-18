@@ -10,6 +10,7 @@ import com.example.cloudreadertest.base.baseadapter.BaseRecyclerViewAdapter;
 import com.example.cloudreadertest.base.baseadapter.BaseRecyclerViewHolder;
 import com.example.cloudreadertest.bean.HotMovieBean;
 import com.example.cloudreadertest.databinding.ItemOneBinding;
+import com.example.cloudreadertest.ui.music.OneMovieDetailActivity;
 import com.example.cloudreadertest.utils.CommonUtils;
 import com.example.cloudreadertest.utils.DebugUtil;
 import com.example.cloudreadertest.utils.ToastUtil;
@@ -52,12 +53,10 @@ public class OneAdapter extends BaseRecyclerViewAdapter<HotMovieBean.SubjectsBea
                  * 当数据改变时，binding会在下一帧去改变数据，如果我们需要立即改变，就去调用executePendingBindings方法。
                  */
                 binding.executePendingBindings();
-//                ViewHelper.setScaleX(itemView, 1);
-//                ViewHelper.setScaleY(itemView, 1);
                 binding.item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ToastUtil.showToast("跳转：" + bean.title);
+                        OneMovieDetailActivity.start(mActivity,bean,binding.ivImages);
                     }
                 });
             }

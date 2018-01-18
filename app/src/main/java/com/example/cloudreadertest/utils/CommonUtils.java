@@ -57,7 +57,7 @@ public class CommonUtils {
     }
 
 //	public static void RunOnUiThread(Runnable r) {
-//		CloudReaderApplication.getInstance().getMainLooper().post(r);
+//		CloudReaderApplication.newInstance().getMainLooper().post(r);
 //	}
 
     public static Drawable setDrawable(int resid) {

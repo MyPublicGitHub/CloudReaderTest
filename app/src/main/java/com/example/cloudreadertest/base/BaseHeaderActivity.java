@@ -253,10 +253,12 @@ public abstract class BaseHeaderActivity<HV extends ViewDataBinding, SV extends 
             if (scrollY <= slidingDistancs) {
                 //title部分的渐变
                 drawable.mutate().setAlpha((int) alpha * 255);
+                bindingTitleView.ivBaseTitleBarBg.setImageDrawable(drawable);
             } else {
                 drawable.mutate().setAlpha(255);
+                bindingTitleView.ivBaseTitleBarBg.setImageDrawable(drawable);
             }
-            bindingTitleView.ivBaseTitleBarBg.setImageDrawable(drawable);
+
         }
     }
 

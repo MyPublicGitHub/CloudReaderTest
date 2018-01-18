@@ -31,7 +31,8 @@
         <activity android:name=".ui.music.DouBanTopActivity" />
         <activity android:name=".base.BaseActivity" />
         <activity android:name=".base.BaseHeaderActivity" />
-        <activity android:name=".ui.music.OneMovieDetailActivity"></activity>
+        <activity android:name=".ui.music.OneMovieDetailActivity" />
+        <activity android:name=".ui.friends.child.BookDetailActivity"></activity>
     </application>
 
 </manifest>

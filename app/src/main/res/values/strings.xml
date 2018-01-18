@@ -16,6 +16,7 @@
 
     <string name="item_one_type">类型：</string>
     <string name="item_one_average">评分：</string>
+    <string name="item_one_average_num">条评分</string>
     <string name="item_one_main">主演：</string>
     <string name="base_header_more">主演：</string>
 </resources>

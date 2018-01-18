@@ -1,15 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context="com.example.cloudreadertest.ui.friends.FreindsFragment">
 
-        <TextView
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_book"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorWhite"
+            app:tabBackground="@drawable/bg_ripple"
+            app:tabIndicatorColor="@color/colorTheme"
+            app:tabSelectedTextColor="@color/colorTheme"
+            app:tabTextColor="@color/colorTabText" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_book"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:background="#fff2f4f5" />
 
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>

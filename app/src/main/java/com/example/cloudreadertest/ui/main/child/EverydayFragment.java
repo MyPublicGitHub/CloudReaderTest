@@ -16,7 +16,7 @@ import com.example.cloudreadertest.R;
 import com.example.cloudreadertest.adapter.EveryDayAdapter;
 import com.example.cloudreadertest.app.Constants;
 import com.example.cloudreadertest.base.BaseFragment;
-import com.example.cloudreadertest.bean.FrontpageBean;
+import com.example.cloudreadertest.bean.FrontPageBean;
 import com.example.cloudreadertest.bean.GankIODayBean.ResultsBean.AndroidBean;
 import com.example.cloudreadertest.databinding.FragmentEverydayBinding;
 import com.example.cloudreadertest.databinding.ItemFooterEverydayBinding;
@@ -168,7 +168,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         mEverydayModel.showBannerPage(new RequestImplements() {
             @Override
             public void loadSuccess(Object object) {
-                FrontpageBean bean = (FrontpageBean) object;
+                FrontPageBean bean = (FrontPageBean) object;
                 if (mBannerImages == null) {
                     mBannerImages = new ArrayList<>();
                 } else {
@@ -176,7 +176,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
                 }
 
                 if (bean != null && bean.result != null && bean.result.focus != null && bean.result.focus.result != null) {
-                    final List<FrontpageBean.ResultBean.FocusBean.ResultBeanXXXXXXXXXXX> result = bean.result.focus.result;
+                    final List<FrontPageBean.ResultBean.FocusBean.ResultBeanXXXXXXXXXXX> result = bean.result.focus.result;
                     if (result != null && result.size() > 0) {
                         for (int i = 0; i < result.size(); i++) {
                             mBannerImages.add(result.get(i).randpic);

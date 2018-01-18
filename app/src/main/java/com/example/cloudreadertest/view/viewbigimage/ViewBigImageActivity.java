@@ -373,7 +373,7 @@ public class ViewBigImageActivity extends FragmentActivity {
 //                        .create();
 //                mDialog.show();
 //            }
-//            PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
+//            PermissionsManager.newInstance().notifyPermissionsChange(permissions, grantResults);
 //        }
 //    }
 }

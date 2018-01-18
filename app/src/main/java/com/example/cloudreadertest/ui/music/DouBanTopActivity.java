@@ -29,7 +29,7 @@ public class DouBanTopActivity extends BaseActivity<ActivityDouBanTopBinding> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dou_ban_top);
         setTitle("豆瓣电影Top250");
-        mAdapter = new DouBanTopAdapter();
+        mAdapter = new DouBanTopAdapter(this);
         initXrv();
         loadDouBanTop250();
         bindingView.xrvTop.setLoadingListener(new XRecyclerView.LoadingListener() {

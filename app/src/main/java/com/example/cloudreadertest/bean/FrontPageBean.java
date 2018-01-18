@@ -7,7 +7,7 @@ import java.util.List;
  * <p>
  * 邮箱：716774214@qq.com
  */
-public class FrontpageBean {
+public class FrontPageBean {
 
     /**
      * https://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.8.1.0&channel=ppzs&operator=3&method=baidu.ting.plaza.index&cuid=89CF1E1A06826F9AB95A34DC0F6AAA14

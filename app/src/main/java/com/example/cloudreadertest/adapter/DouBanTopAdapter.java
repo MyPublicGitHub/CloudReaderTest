@@ -1,5 +1,6 @@
 package com.example.cloudreadertest.adapter;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
@@ -9,6 +10,7 @@ import com.example.cloudreadertest.base.baseadapter.BaseRecyclerViewAdapter;
 import com.example.cloudreadertest.base.baseadapter.BaseRecyclerViewHolder;
 import com.example.cloudreadertest.bean.HotMovieBean.SubjectsBean;
 import com.example.cloudreadertest.databinding.ItemTopBinding;
+import com.example.cloudreadertest.ui.music.OneMovieDetailActivity;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
@@ -17,6 +19,10 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
  */
 
 public class DouBanTopAdapter extends BaseRecyclerViewAdapter<SubjectsBean> {
+    private Activity mActivity;
+    public DouBanTopAdapter(Activity activity){
+        mActivity = activity;
+    }
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(parent, R.layout.item_top);
@@ -29,8 +35,8 @@ public class DouBanTopAdapter extends BaseRecyclerViewAdapter<SubjectsBean> {
         }
 
         @Override
-        public void onBindViewHolder(SubjectsBean bean, int position) {
-            if (bean!=null){
+        public void onBindViewHolder(final SubjectsBean bean, int position) {
+            if (bean != null) {
                 binding.setBean(bean);
                 /**
                  * 当数据改变时，binding会在下一帧去改变数据，如果我们需要立即改变，就去调用executePendingBindings方法。
@@ -43,7 +49,7 @@ public class DouBanTopAdapter extends BaseRecyclerViewAdapter<SubjectsBean> {
                 binding.llItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
+                        OneMovieDetailActivity.start(mActivity, bean, binding.imageView);
                     }
                 });
                 binding.llItem.setOnLongClickListener(new View.OnLongClickListener() {

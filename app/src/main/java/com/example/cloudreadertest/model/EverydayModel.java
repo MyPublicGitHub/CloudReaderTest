@@ -3,7 +3,7 @@ package com.example.cloudreadertest.model;
 import android.text.TextUtils;
 
 import com.example.cloudreadertest.app.ConstantsImageUrl;
-import com.example.cloudreadertest.bean.FrontpageBean;
+import com.example.cloudreadertest.bean.FrontPageBean;
 import com.example.cloudreadertest.bean.GankIODayBean;
 import com.example.cloudreadertest.bean.GankIODayBean.ResultsBean.AndroidBean;
 import com.example.cloudreadertest.http.HttpClient;
@@ -32,7 +32,7 @@ public class EverydayModel {
     public void showBannerPage(final RequestImplements requestImplements) {
         Subscription subscription = HttpClient.Builder.getTingServer().getFrontpage()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<FrontpageBean>() {
+                .subscribe(new Subscriber<FrontPageBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -44,7 +44,7 @@ public class EverydayModel {
                     }
 
                     @Override
-                    public void onNext(FrontpageBean frontpageBean) {
+                    public void onNext(FrontPageBean frontpageBean) {
                         requestImplements.loadSuccess(frontpageBean);
                     }
                 });

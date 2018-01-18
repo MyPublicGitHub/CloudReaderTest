@@ -1,9 +1,12 @@
 package com.example.cloudreadertest.http;
 
-import com.example.cloudreadertest.bean.FrontpageBean;
+import com.example.cloudreadertest.bean.BookBean;
+import com.example.cloudreadertest.bean.BookDetailBean;
+import com.example.cloudreadertest.bean.FrontPageBean;
 import com.example.cloudreadertest.bean.GankIODataBean;
 import com.example.cloudreadertest.bean.GankIODayBean;
 import com.example.cloudreadertest.bean.HotMovieBean;
+import com.example.cloudreadertest.bean.MovieDetailBean;
 import com.example.http.HttpUtils;
 
 import retrofit2.http.GET;
@@ -35,7 +38,7 @@ public interface HttpClient {
      * 首页轮播图
      */
     @GET("ting?from=android&version=5.8.1.0&channel=ppzs&operator=3&method=baidu.ting.plaza.index&cuid=89CF1E1A06826F9AB95A34DC0F6AAA14")
-    Observable<FrontpageBean> getFrontpage();
+    Observable<FrontPageBean> getFrontpage();
 
     /**
      * 分类数据: http://gank.io/api/data/数据类型/请求个数/第几页
@@ -60,13 +63,14 @@ public interface HttpClient {
      */
     @GET("v2/movie/in_theaters")
     Observable<HotMovieBean> getHotMovie();
-//    /**
-//     * 获取电影详情
-//     *
-//     * @param id 电影bean里的id
-//     */
-//    @GET("v2/movie/subject/{id}")
-//    Observable<MovieDetailBean> getMovieDetail(@Path("id") String id);
+
+    /**
+     * 获取电影详情
+     *
+     * @param id 电影bean里的id
+     */
+    @GET("v2/movie/subject/{id}")
+    Observable<MovieDetailBean> getMovieDetail(@Path("id") String id);
 
     /**
      * 获取豆瓣电影top250
@@ -76,26 +80,30 @@ public interface HttpClient {
      */
     @GET("v2/movie/top250")
     Observable<HotMovieBean> getMovieTop250(@Query("start") int start, @Query("count") int count);
-//
-//    /**
-//     * 根据tag获取图书
-//     *
-//     * @param tag   搜索关键字
-//     * @param count 一次请求的数目 最多100
-//     */
-//
-//    @GET("v2/book/search")
-//    Observable<BookBean> getBook(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
-//
-//    @GET("v2/book/{id}")
-//    Observable<BookDetailBean> getBookDetail(@Path("id") String id);
+
+    /**
+     * https://api.douban.com/v2/book/search?tag=%E7%BB%BC%E5%90%88&start=0&count=18
+     * 根据tag获取图书
+     *
+     * @param tag   搜索关键字
+     * @param count 一次请求的数目 最多100
+     */
+    @GET("v2/book/search")
+    Observable<BookBean> getBook(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
+    /**
+     *v2/book/25985021
+     * @param id
+     * @return
+     */
+    @GET("v2/book/{id}")
+    Observable<BookDetailBean> getBookDetail(@Path("id") String id);
 
     /**
      * 根据tag获取music
      * @param tag
      * @return
      */
-
 //    @GET("v2/music/search")
 //    Observable<MusicRoot> searchMusicByTag(@Query("tag")String tag);
 

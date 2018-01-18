@@ -1,5 +1,7 @@
 package com.example.cloudreadertest.bean;
 
+import android.databinding.BaseObservable;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class HotMovieBean implements Serializable{
     public String title;
     public List<SubjectsBean> subjects;
 
-    public static class SubjectsBean implements Serializable{
+    public static class SubjectsBean extends BaseObservable implements Serializable{
 
         public RatingBean rating;
         public String title;
@@ -34,7 +36,7 @@ public class HotMovieBean implements Serializable{
         public List<CastsBean> casts;
         public List<CastsBean> directors;
 
-        public static class RatingBean {
+        public static class RatingBean extends BaseObservable implements Serializable{
             /**
              * max : 10
              * average : 6.2
@@ -48,7 +50,7 @@ public class HotMovieBean implements Serializable{
             public int min;
         }
 
-        public static class ImagesBean {
+        public static class ImagesBean extends BaseObservable implements Serializable{
             /**
              * small : https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2508926717.jpg
              * large : https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2508926717.jpg
@@ -60,14 +62,14 @@ public class HotMovieBean implements Serializable{
             public String medium;
         }
 
-        public static class CastsBean {
+        public static class CastsBean extends BaseObservable implements Serializable{
 
             public String alt;
             public AvatarsBean avatars;
             public String name;
             public String id;
 
-            public static class AvatarsBean {
+            public static class AvatarsBean extends BaseObservable implements Serializable{
                 /**
                  * small : https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p14025.jpg
                  * large : https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p14025.jpg
