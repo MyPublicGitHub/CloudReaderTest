@@ -1,152 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cl_navigation"
+    <data>
+
+        <variable
+            name="listener"
+            type="com.example.cloudreadertest.MainActivity" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPageBG"
+        android:fitsSystemWindows="true">
 
-        <FrameLayout
-            android:id="@+id/fl_header_bg"
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:background="@mipmap/homepage_header" />
+            android:layout_height="match_parent"
+            android:background="@color/colorPageBG"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_head_portrait"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="44dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:gravity="center_vertical"
-            android:text="TangledPrince"
-            android:textColor="@color/colorWhite"
-            app:layout_constraintBottom_toBottomOf="@id/fl_header_bg"
-            app:layout_constraintLeft_toRightOf="@id/iv_head_portrait"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/ll_home_page"
-            style="@style/MyNavigationLinearLayoutItemTheme"
-            app:layout_constraintTop_toBottomOf="@id/fl_header_bg">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@mipmap/ic_nav_homepage" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="项目主页"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_height="170dp"
+                android:background="@mipmap/homepage_header"
+                android:gravity="center_vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_download"
-            style="@style/MyNavigationLinearLayoutItemTheme"
-            app:layout_constraintTop_toBottomOf="@id/ll_home_page">
+                <ImageView
+                    android:id="@+id/iv_head_portrait"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="20dp" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@mipmap/ic_nav_scan" />
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:text="TangledPrince"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/ll_home_page"
+                style="@style/MyNavigationLinearLayoutItemTheme">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@mipmap/ic_nav_homepage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="项目主页"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="扫码下载"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
 
-        <LinearLayout
-            android:id="@+id/ll_feedback"
-            style="@style/MyNavigationLinearLayoutItemTheme"
-            app:layout_constraintTop_toBottomOf="@id/ll_download">
+            <LinearLayout
+                android:id="@+id/ll_download"
+                style="@style/MyNavigationLinearLayoutItemTheme">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@mipmap/ic_nav_deedback" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@mipmap/ic_nav_scan" />
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="扫码下载"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="问题反馈"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
 
-        <LinearLayout
-            android:id="@+id/ll_about_this"
-            style="@style/MyNavigationLinearLayoutItemTheme"
-            app:layout_constraintTop_toBottomOf="@id/ll_feedback">
+            <LinearLayout
+                android:id="@+id/ll_feedback"
+                style="@style/MyNavigationLinearLayoutItemTheme">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@mipmap/ic_nav_about" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@mipmap/ic_nav_deedback" />
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="问题反馈"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="关于本软件"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
 
-        <LinearLayout
-            android:id="@+id/ll_login_git_hub"
-            style="@style/MyNavigationLinearLayoutItemTheme"
-            app:layout_constraintTop_toBottomOf="@id/ll_about_this">
+            <LinearLayout
+                android:id="@+id/ll_about_this"
+                style="@style/MyNavigationLinearLayoutItemTheme">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@mipmap/ic_nav_login" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@mipmap/ic_nav_about" />
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="关于本软件"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="登录GitHub账号"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
 
-        <LinearLayout
-            android:id="@+id/ll_exit"
-            style="@style/MyNavigationLinearLayoutItemTheme"
-            app:layout_constraintTop_toBottomOf="@id/ll_login_git_hub">
+            <LinearLayout
+                android:id="@+id/ll_login_git_hub"
+                style="@style/MyNavigationLinearLayoutItemTheme">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@mipmap/ic_nav_exit" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@mipmap/ic_nav_login" />
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="登录GitHub账号"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="退出应用"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
+
+            <LinearLayout
+                android:id="@+id/ll_exit"
+                style="@style/MyNavigationLinearLayoutItemTheme">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@mipmap/ic_nav_exit" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="退出应用"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine" />
         </LinearLayout>
-
-
-    </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

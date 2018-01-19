@@ -199,7 +199,7 @@ public class EveryDayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                View v = View.inflate(view.getContext(), R.layout.titlr_douban_top, null);
+                View v = View.inflate(view.getContext(), R.layout.title_douban_top, null);
                 TextView textView = v.findViewById(R.id.tv_title);
                 textView.setTextSize(14);
                 textView.setText(TextUtils.isEmpty(bean.type) ? bean.desc : bean.type + "：" + bean.desc);

@@ -18,9 +18,11 @@ import com.example.cloudreadertest.http.rx.RxBusBaseMessage;
 import com.example.cloudreadertest.http.rx.RxCodeConstants;
 import com.example.cloudreadertest.ui.friends.FriendsFragment;
 import com.example.cloudreadertest.ui.main.MainFragment;
+import com.example.cloudreadertest.ui.menu.NavHomePageActivity;
 import com.example.cloudreadertest.ui.music.MusicFragment;
 import com.example.cloudreadertest.utils.CommonUtils;
 import com.example.cloudreadertest.utils.ImageLoadUtils;
+import com.example.cloudreadertest.utils.PerfectClickListener;
 import com.example.cloudreadertest.view.statusbar.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -47,8 +49,47 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         View headerView = mBinding.navigationView.getHeaderView(0);
         LayoutHeaderNavigationViewBinding bind = DataBindingUtil.bind(headerView);
         ImageLoadUtils.displayCircle(bind.ivHeadPortrait, ConstantsImageUrl.IC_AVATAR);
+        bind.setListener(this);
+        bind.ivHeadPortrait.setOnClickListener(this);
+        bind.llExit.setOnClickListener(this);
 
+        bind.llAboutThis.setOnClickListener(listener);
+        bind.llDownload.setOnClickListener(listener);
+        bind.llHomePage.setOnClickListener(listener);
+        bind.llFeedback.setOnClickListener(listener);
+        bind.llLoginGitHub.setOnClickListener(listener);
     }
+
+    private PerfectClickListener listener = new PerfectClickListener() {
+        @Override
+        protected void onNoDoubleClick(final View view) {
+            mBinding.drawerLayout.closeDrawer(Gravity.START);
+            mBinding.drawerLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    switch (view.getId()) {
+                        case R.id.ll_about_this:
+
+                            break;
+                        case R.id.ll_download:
+
+                            break;
+                        case R.id.ll_home_page:
+                            NavHomePageActivity.startHome(MainActivity.this);
+                            break;
+                        case R.id.ll_feedback:
+
+                            break;
+                        case R.id.ll_login_git_hub:
+
+                            break;
+
+                    }
+                }
+            }, 260);
+
+        }
+    };
 
     private void initFragments() {
         fragments = new ArrayList<>();

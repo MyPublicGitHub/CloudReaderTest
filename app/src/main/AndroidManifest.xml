@@ -32,7 +32,8 @@
         <activity android:name=".base.BaseActivity" />
         <activity android:name=".base.BaseHeaderActivity" />
         <activity android:name=".ui.music.OneMovieDetailActivity" />
-        <activity android:name=".ui.friends.child.BookDetailActivity"></activity>
+        <activity android:name=".ui.friends.child.BookDetailActivity" />
+        <activity android:name=".ui.menu.NavHomePageActivity"></activity>
     </application>
 
 </manifest>
