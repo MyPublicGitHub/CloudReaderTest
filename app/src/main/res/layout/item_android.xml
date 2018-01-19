@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.example.cloudreadertest.utils.TimeUtil" />
+
+        <variable
+            name="bean"
+            type="com.example.cloudreadertest.bean.GankIODataBean.ResultsBean" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:id="@+id/ll_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ripple"
+            android:orientation="vertical"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:id="@+id/iv_image_only"
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="4dp"
+                    android:text="@{bean.desc}"
+                    android:textColor="@color/colorContent"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="12dp">
+
+                <TextView
+                    android:id="@+id/tv_who"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{TextUtils.isEmpty(bean.who)?@string/no_name:bean.who}"
+                    android:textColor="@color/colorSubtitle"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_who"
+                    android:text=""
+                    android:textColor="@color/colorSubtitle"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@{TimeUtil.getTranslateTime(bean.publishedAt)}"
+                    android:textColor="@color/colorSubtitle"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="6dp"
+                android:background="@color/colorTransparent" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>

@@ -49,6 +49,7 @@ public class CustomFragment extends BaseFragment<FragmentCustomBinding> {
 
     private void initData() {
         mCache = Cache.get(getContext());
+        mModel = new GankOtherModel();
         mType = SPUtils.getString(Constants.CUSTOM_CALA_TYPE, "all");
         mAdapter = new CustomAdapter();
         initXRV(bindingView.xrvCustom);
@@ -67,7 +68,7 @@ public class CustomFragment extends BaseFragment<FragmentCustomBinding> {
     }
 
     private void loadCustomData() {
-        mModel = new GankOtherModel(mType, HttpUtils.per_page_more, mPage);
+        mModel.setData(mType, HttpUtils.per_page, mPage);
         mModel.getGankIOData(new RequestImplements() {
             @Override
             public void loadSuccess(Object object) {

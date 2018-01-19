@@ -13,8 +13,8 @@ import com.example.cloudreadertest.base.BaseFragment;
 import com.example.cloudreadertest.base.baseadapter.OnItemClickListener;
 import com.example.cloudreadertest.bean.GankIODataBean;
 import com.example.cloudreadertest.databinding.FragmentWelfareBinding;
-import com.example.cloudreadertest.http.cache.Cache;
 import com.example.cloudreadertest.http.RequestImplements;
+import com.example.cloudreadertest.http.cache.Cache;
 import com.example.cloudreadertest.model.GankOtherModel;
 import com.example.cloudreadertest.utils.DebugUtil;
 import com.example.cloudreadertest.view.viewbigimage.ViewBigImageActivity;
@@ -35,6 +35,9 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding> {
     private boolean isFirst = true;
     private int mPage = 1;
     private WelfareAdapter welfareAdapter;
+    private GankIODataBean meiziBean;
+    private Cache cache;
+    private GankOtherModel mModel;
 
     @Override
     public int setContentView() {
@@ -45,6 +48,7 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         cache = Cache.get(getContext());
+        mModel = new GankOtherModel();
         bindingView.xrvWelfare.setPullRefreshEnabled(false);
         bindingView.xrvWelfare.clearHeader();
         welfareAdapter = new WelfareAdapter();
@@ -81,11 +85,8 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding> {
         }
     }
 
-    GankIODataBean meiziBean;
-    private Cache cache;
-
     private void loadWelfareData() {
-        GankOtherModel mModel = new GankOtherModel("福利", HttpUtils.per_page_more, mPage);
+        mModel.setData("福利", HttpUtils.per_page_more, mPage);
         mModel.getGankIOData(new RequestImplements() {
             @Override
             public void loadSuccess(Object object) {

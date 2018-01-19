@@ -18,18 +18,18 @@ import rx.schedulers.Schedulers;
 public class GankOtherModel {
 
     private String dataType;//数据类型  福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
-    private int pre_page;//数量
+    private int per_page;//数量
     private int page;//页码
 
-    public GankOtherModel(String dataType, int pre_page, int page) {
+    public void setData(String dataType, int count, int page) {
         this.dataType = dataType;
-        this.pre_page = pre_page;
         this.page = page;
+        this.per_page = count;
     }
 
     public void getGankIOData(final RequestImplements impl) {
 
-        Subscription subscription = HttpClient.Builder.getGankIOServer().getGankIOData(dataType, pre_page, page)
+        Subscription subscription = HttpClient.Builder.getGankIOServer().getGankIOData(dataType, per_page, page)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer() {
                     @Override
